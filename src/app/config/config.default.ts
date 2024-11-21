@@ -70,6 +70,9 @@ export const defaultConfig: Config = {
       topic: 'topic',
       relayNumber: null,
     },
+    companionPlugin: {
+      enabled: false,
+    },
   },
   octodash: {
     customActions: [

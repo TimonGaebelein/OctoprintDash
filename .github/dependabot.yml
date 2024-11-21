@@ -1,10 +1,7 @@
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "10:00"
-  open-pull-requests-limit: 15
-  labels:
-  - dependencies
+  # Check for updates to GitHub Actions every week
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"

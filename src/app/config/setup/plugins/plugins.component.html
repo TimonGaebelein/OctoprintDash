@@ -4,6 +4,15 @@
   <div class="scroll__thumb-inactive"></div>
   <span>
     <app-toggle-switch
+      [value]="companionPlugin"
+      (valueChange)="companionPluginChange.emit(!companionPlugin)"
+    >
+    </app-toggle-switch>
+    <ng-container i18n="@@plugin-octodash-companion">OctoDash Companion</ng-container>
+  </span>
+
+  <span>
+    <app-toggle-switch
       [value]="displayLayerProgressPlugin"
       (valueChange)="displayLayerProgressPluginChange.emit(!displayLayerProgressPlugin)"
     >

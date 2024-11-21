@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Auto Approve
-        uses: hmarr/auto-approve-action@v2
+        uses: hmarr/auto-approve-action@v3
         if: github.actor == 'dependabot[bot]'
         with:
           github-token: '${{ secrets.GITHUB_TOKEN }}'
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Auto Merge
-        uses: pascalgn/automerge-action@v0.13.1
+        uses: pascalgn/automerge-action@v0.16.0
         if: github.actor == 'dependabot[bot]'
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'

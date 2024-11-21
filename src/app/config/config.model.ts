@@ -60,6 +60,7 @@ interface Plugins {
   tpLinkSmartPlug: TPLinkSmartPlugPlugin;
   tasmota: TasmotaPlugin;
   tasmotaMqtt: TasmotaMqttPlugin;
+  companionPlugin: Plugin;
 }
 
 interface Plugin {

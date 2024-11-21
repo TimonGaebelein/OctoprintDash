@@ -470,6 +470,15 @@
           <span i18n="@@settings-plugins">plugins</span>
         </span>
         <div class="settings__scroll">
+          <span class="settings__heading-2" i18n="@@settings-octodash-companion">OctoDash Companion</span>
+          <div
+            class="settings__checkbox-container"
+            (click)="config.plugins.companionPlugin.enabled = !config.plugins.companionPlugin.enabled">
+            <span class="settings__checkbox">
+              <span class="settings__checkbox-checked" *ngIf="config.plugins.companionPlugin.enabled"></span>
+            </span>
+            <span class="settings__checkbox-descriptor" i18n="@@settings-octodash-companion-enabled">enabled</span>
+          </div>
           <span class="settings__heading-2" i18n="@@settings-display-layer-progress">Display Layer Progress</span>
           <div
             class="settings__checkbox-container"

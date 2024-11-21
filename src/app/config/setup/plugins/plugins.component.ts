@@ -17,6 +17,7 @@ export class PluginsComponent {
   @Input() tpLinkSmartPlugPlugin: boolean;
   @Input() tasmotaPlugin: boolean;
   @Input() tasmotaMqttPlugin: boolean;
+  @Input() companionPlugin: boolean;
 
   @Output() displayLayerProgressPluginChange = new EventEmitter<boolean>();
   @Output() enclosurePluginChange = new EventEmitter<boolean>();
@@ -29,4 +30,5 @@ export class PluginsComponent {
   @Output() tpLinkSmartPlugPluginChange = new EventEmitter<boolean>();
   @Output() tasmotaPluginChange = new EventEmitter<boolean>();
   @Output() tasmotaMqttPluginChange = new EventEmitter<boolean>();
+  @Output() companionPluginChange = new EventEmitter<boolean>();
 }

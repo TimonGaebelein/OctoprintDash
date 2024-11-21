@@ -249,6 +249,10 @@ export class ConfigService {
     return this.config.plugins.displayLayerProgress.enabled;
   }
 
+  public isCompanionPluginEnabled(): boolean {
+    return this.config.plugins.companionPlugin.enabled;
+  }
+
   public isPreheatPluginEnabled(): boolean {
     return this.config.plugins.preheatButton.enabled;
   }

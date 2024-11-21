@@ -668,13 +668,13 @@ text_input() {
 
 
 
-arch=$(uname -m)
-if [[ $arch == x86_64 ]]; then
-    releaseURL=$(curl -s "https://api.github.com/repos/UnchartedBull/OctoDash/releases/latest" | grep "browser_download_url.*amd64.deb" | cut -d '"' -f 4)
-elif [[ $arch == aarch64 ]]; then
-    releaseURL=$(curl -s "https://api.github.com/repos/UnchartedBull/OctoDash/releases/latest" | grep "browser_download_url.*arm64.deb" | cut -d '"' -f 4)
-elif  [[ $arch == arm* ]]; then
+arch=$(dpkg --print-architecture)
+if  [[ $arch == armhf ]]; then
     releaseURL=$(curl -s "https://api.github.com/repos/UnchartedBull/OctoDash/releases/latest" | grep "browser_download_url.*armv7l.deb" | cut -d '"' -f 4)
+elif [[ $arch == arm64 ]]; then
+    releaseURL=$(curl -s "https://api.github.com/repos/UnchartedBull/OctoDash/releases/latest" | grep "browser_download_url.*arm64.deb" | cut -d '"' -f 4)
+elif [[ $arch == amd64 ]]; then
+    releaseURL=$(curl -s "https://api.github.com/repos/UnchartedBull/OctoDash/releases/latest" | grep "browser_download_url.*amd64.deb" | cut -d '"' -f 4)
 fi
 dependencies="libgtk-3-0 libnotify4 libnss3 libxss1 libxtst6 xdg-utils libatspi2.0-0 libuuid1 libappindicator3-1 libsecret-1-0 xserver-xorg ratpoison x11-xserver-utils xinit libgtk-3-0 bc desktop-file-utils libavahi-compat-libdnssd1 libpam0g-dev libx11-dev"
 IFS='/' read -ra version <<< "$releaseURL"
@@ -695,12 +695,12 @@ echo "Installing Dependencies ..."
   exit -1
 }
 
-if [ -d "/home/pi/OctoPrint/venv" ]; then
-    DIRECTORY="/home/pi/OctoPrint/venv"
-elif [ -d "/home/pi/oprint" ]; then
-    DIRECTORY="/home/pi/oprint"
+if [ -d "$HOME/OctoPrint/venv" ]; then
+    DIRECTORY="$HOME/OctoPrint/venv"
+elif [ -d "$HOME/oprint" ]; then
+    DIRECTORY="$HOME/oprint"
 else
-    echo "Neither /home/pi/OctoPrint/venv nor /home/pi/oprint can be found."
+    echo "Neither $HOME/OctoPrint/venv nor $HOME/oprint can be found."
     echo "If your OctoPrint instance is running on a different machine just type - in the following prompt."
     text_input "Please specify OctoPrints full virtualenv path manually (no trailing slash)." DIRECTORY
 fi;
@@ -834,7 +834,7 @@ EOF
     sudo chmod +x ~/scripts/update-octodash
 
     sudo bash -c 'cat >> /etc/sudoers.d/update-octodash' <<EOF
-pi ALL=NOPASSWD: /home/pi/scripts/update-octodash
+pi ALL=NOPASSWD: $HOME/scripts/update-octodash
 EOF
 fi
 
