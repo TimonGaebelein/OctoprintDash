@@ -70,6 +70,11 @@ export const defaultConfig: Config = {
       topic: 'topic',
       relayNumber: null,
     },
+    wemo: {
+      enabled: false,
+      ip: '127.0.0.1',
+      port: 49152,
+    },
   },
   octodash: {
     customActions: [

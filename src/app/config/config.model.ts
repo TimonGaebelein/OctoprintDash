@@ -60,6 +60,7 @@ interface Plugins {
   tpLinkSmartPlug: TPLinkSmartPlugPlugin;
   tasmota: TasmotaPlugin;
   tasmotaMqtt: TasmotaMqttPlugin;
+  wemo: WemoPlugin;
 }
 
 interface Plugin {
@@ -90,6 +91,11 @@ interface TasmotaPlugin extends Plugin {
 interface TasmotaMqttPlugin extends Plugin {
   topic: string;
   relayNumber: number;
+}
+
+interface WemoPlugin extends Plugin {
+  ip: string;
+  port: number;
 }
 
 interface OctoDash {

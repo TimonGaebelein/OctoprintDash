@@ -80,4 +80,10 @@
     </app-toggle-switch>
     <ng-container i18n="@@plugin-tasmota-mqtt"> Tasmota MQTT </ng-container>
   </span>
+
+  <span>
+    <app-toggle-switch [value]="wemoPlugin" (valueChange)="wemoPluginChange.emit(!wemoPlugin)">
+    </app-toggle-switch>
+    <ng-container i18n="@@plugin-wemo"> Wemo </ng-container>
+  </span>
 </div>

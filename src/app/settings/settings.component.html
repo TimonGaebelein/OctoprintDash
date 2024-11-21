@@ -318,7 +318,8 @@
                 config.plugins.ophom.enabled ||
                 config.plugins.tpLinkSmartPlug.enabled ||
                 config.plugins.tasmota.enabled ||
-                config.plugins.tasmotaMqtt.enabled
+                config.plugins.tasmotaMqtt.enabled ||
+                config.plugins.wemo.enabled
               )
             }"
             (click)="config.octodash.turnOnPrinterWhenExitingSleep = !config.octodash.turnOnPrinterWhenExitingSleep">
@@ -331,7 +332,8 @@
                     config.plugins.ophom.enabled ||
                     config.plugins.tpLinkSmartPlug.enabled ||
                     config.plugins.tasmota.enabled ||
-                    config.plugins.tasmotaMqtt.enabled
+                    config.plugins.tasmotaMqtt.enabled ||
+                    config.plugins.wemo.enabled
                   )
                 }"
                 *ngIf="config.octodash.turnOnPrinterWhenExitingSleep"></span>
@@ -635,6 +637,35 @@
             style="width: 44.94vw"
             [(ngModel)]="config.plugins.tasmotaMqtt.relayNumber"
             [disabled]="!config.plugins.tasmotaMqtt.enabled" />
+          <span class="settings__heading-2" i18n="@@settings-wemo">Wemo</span>
+          <div
+            class="settings__checkbox-container"
+            (click)="config.plugins.wemo.enabled = !config.plugins.wemo.enabled">
+            <span class="settings__checkbox">
+              <span class="settings__checkbox-checked" *ngIf="config.plugins.wemo.enabled"></span>
+            </span>
+            <span class="settings__checkbox-descriptor" i18n="@@settings-wemo-enabled">enabled</span>
+          </div>
+          <label for="wemo-ip" class="settings__input-label" i18n="@@settings-wemo-ip" >Wemo IP</label>
+          <input
+            type="text"
+            id="wemo-ip"
+            class="settings__input"
+            name="wemo-ip"
+            style="width: 44.94vw"
+            [(ngModel)]="config.plugins.wemo.ip"
+            required
+            [disabled]="!config.plugins.wemo.enabled" />
+          <label for="wemo-port" class="settings__input-label" i18n="@@settings-wemo-port" >Wemo Port</label>
+          <input
+            type="number"
+            id="wemo-port"
+            class="settings__input"
+            name="wemo-port"
+            style="width: 44.94vw"
+            [(ngModel)]="config.plugins.wemo.port"
+            required
+            [disabled]="!config.plugins.wemo.enabled" />
         </div>
       </div>
       <div class="settings__content settings__content-inactive" #settingsCredits>

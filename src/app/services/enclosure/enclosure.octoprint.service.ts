@@ -15,6 +15,7 @@ import {
   TasmotaCommand,
   TasmotaMqttCommand,
   TPLinkCommand,
+  WemoCommand,
 } from '../../model/octoprint';
 import { NotificationService } from '../../notification/notification.service';
 import { EnclosureService } from './enclosure.service';
@@ -158,6 +159,8 @@ export class EnclosureOctoprintService implements EnclosureService {
       this.setPSUStateTasmota(state);
     } else if (this.configService.useTasmotaMqtt()) {
       this.setPSUStateTasmotaMqtt(state);
+    } else if (this.configService.useWemo()) {
+      this.setPSUStateWemo(state);
     } else {
       this.notificationService.setNotification({
         heading: $localize`:@@error-psu-state:Can't change PSU State!`,
@@ -297,6 +300,28 @@ export class EnclosureOctoprintService implements EnclosureService {
         catchError(error => {
           this.notificationService.setNotification({
             heading: $localize`:@@error-send-tasmota-plug-mqtt:Can't update Tasmota MQTT!`,
+            text: error.message,
+            type: NotificationType.ERROR,
+            time: new Date(),
+          });
+          return of(null);
+        }),
+      )
+      .subscribe();
+  }
+
+  private setPSUStateWemo(state: PSUState) {
+    const wemoPayload: WemoCommand = {
+      command: state === PSUState.ON ? 'turnOn' : 'turnOff',
+      ip: this.configService.getWemoIP(),
+    };
+
+    this.http
+      .post(this.configService.getApiURL('plugin/wemoswitch'), wemoPayload, this.configService.getHTTPHeaders())
+      .pipe(
+        catchError(error => {
+          this.notificationService.setNotification({
+            heading: $localize`:@@error-send-wemo-plug:Can't update Wemo!`,
             text: error.message,
             type: NotificationType.ERROR,
             time: new Date(),
