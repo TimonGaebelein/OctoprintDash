@@ -795,7 +795,7 @@ xset s noblank
 xset -dpms
 
 ratpoison&
-octodash
+octodash --no-sandbox
 EOF
 
     cat <<EOF >> ~/.bashrc
