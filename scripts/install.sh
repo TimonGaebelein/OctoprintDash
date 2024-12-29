@@ -695,12 +695,12 @@ echo "Installing Dependencies ..."
   exit -1
 }
 
-if [ -d "/home/pi/OctoPrint/venv" ]; then
-    DIRECTORY="/home/pi/OctoPrint/venv"
-elif [ -d "/home/pi/oprint" ]; then
-    DIRECTORY="/home/pi/oprint"
+if [ -d "$HOME/OctoPrint/venv" ]; then
+    DIRECTORY="$HOME/OctoPrint/venv"
+elif [ -d "$HOME/oprint" ]; then
+    DIRECTORY="$HOME/oprint"
 else
-    echo "Neither /home/pi/OctoPrint/venv nor /home/pi/oprint can be found."
+    echo "Neither $HOME/OctoPrint/venv nor $HOME/oprint can be found."
     echo "If your OctoPrint instance is running on a different machine just type - in the following prompt."
     text_input "Please specify OctoPrints full virtualenv path manually (no trailing slash)." DIRECTORY
 fi;
@@ -834,7 +834,7 @@ EOF
     sudo chmod +x ~/scripts/update-octodash
 
     sudo bash -c 'cat >> /etc/sudoers.d/update-octodash' <<EOF
-pi ALL=NOPASSWD: /home/pi/scripts/update-octodash
+pi ALL=NOPASSWD: $HOME/scripts/update-octodash
 EOF
 fi
 
