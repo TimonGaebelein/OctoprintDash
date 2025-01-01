@@ -7,3 +7,4 @@ export * from './job.model';
 export * from './printer-profile.model';
 export * from './printer.model';
 export * from './system.model';
+export * from './util-test.model';

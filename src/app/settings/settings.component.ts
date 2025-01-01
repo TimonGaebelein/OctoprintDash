@@ -6,6 +6,7 @@ import { ConfigService } from '../config/config.service';
 import { ElectronService } from '../electron.service';
 import { NotificationType } from '../model';
 import { NotificationService } from '../notification/notification.service';
+import { SystemService } from '../services/system/system.service';
 
 @Component({
   selector: 'app-settings',
@@ -34,10 +35,13 @@ export class SettingsComponent implements OnInit, OnDestroy {
   private pages = [];
   public update = false;
 
+  public localIpAddress$ = this.systemService.getLocalIpAddress();
+
   public constructor(
     private configService: ConfigService,
     private notificationService: NotificationService,
     private electronService: ElectronService,
+    private systemService: SystemService,
     public service: AppService,
   ) {
     this.config = this.configService.getCurrentConfig();

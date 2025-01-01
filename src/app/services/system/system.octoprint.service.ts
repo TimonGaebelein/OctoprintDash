@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { ConfigService } from '../../config/config.service';
-import { NotificationType, SocketAuth } from '../../model';
+import { NotificationType, SocketAuth, TestAddress } from '../../model';
 import { ConnectCommand, OctoprintLogin } from '../../model/octoprint';
 import { NotificationService } from '../../notification/notification.service';
 import { SystemService } from './system.service';
@@ -73,5 +73,15 @@ export class SystemOctoprintService implements SystemService {
         }),
       )
       .subscribe();
+  }
+
+  public getLocalIpAddress() {
+    const payload = {
+      command: 'address',
+    };
+
+    return this.http
+      .post<TestAddress>(this.configService.getApiURL('util/test'), payload, this.configService.getHTTPHeaders())
+      .pipe(map(result => (result?.is_lan_address && result?.address ? result.address : null)));
   }
 }
