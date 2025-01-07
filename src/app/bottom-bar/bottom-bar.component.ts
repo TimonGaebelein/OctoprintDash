@@ -42,6 +42,19 @@ export class BottomBarComponent implements OnDestroy {
           });
         }),
       );
+    } else {
+      this.subscriptions.add(
+        this.socketService.getPrinterStatusSubscribable().subscribe((printerStatus: PrinterStatus): void => {
+          if (printerStatus.chamber.current > 0) {
+            const chamberReading: TemperatureReading = {
+              temperature: printerStatus.chamber.current,
+              humidity: 0,
+              unit: printerStatus.chamber.unit,
+            };
+            this.enclosureTemperature = chamberReading;
+          }
+        }),
+      );
     }
 
     this.subscriptions.add(
