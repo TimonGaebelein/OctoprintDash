@@ -70,6 +70,14 @@
   </span>
 
   <span>
+    <app-toggle-switch
+      [value]="tuyaPlugin"
+      (valueChange)="tuyaPluginChange.emit(!tuyaPlugin)"
+    ></app-toggle-switch>
+    <ng-container i18n="@@plugin-tuya"> Tuya SmartPlug </ng-container>
+  </span>
+
+  <span>
     <app-toggle-switch [value]="tasmotaPlugin" (valueChange)="tasmotaPluginChange.emit(!tasmotaPlugin)">
     </app-toggle-switch>
     <ng-container i18n="@@plugin-tasmota"> Tasmota </ng-container>

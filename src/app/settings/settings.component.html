@@ -317,6 +317,7 @@
                 config.plugins.psuControl.enabled ||
                 config.plugins.ophom.enabled ||
                 config.plugins.tpLinkSmartPlug.enabled ||
+                config.plugins.tuya.enabled ||
                 config.plugins.tasmota.enabled ||
                 config.plugins.tasmotaMqtt.enabled
               )
@@ -330,6 +331,7 @@
                     config.plugins.psuControl.enabled ||
                     config.plugins.ophom.enabled ||
                     config.plugins.tpLinkSmartPlug.enabled ||
+                    config.plugins.tuya.enabled ||
                     config.plugins.tasmota.enabled ||
                     config.plugins.tasmotaMqtt.enabled
                   )
@@ -579,6 +581,27 @@
             [(ngModel)]="config.plugins.tpLinkSmartPlug.smartPlugIP"
             required
             [disabled]="!config.plugins.tpLinkSmartPlug.enabled" />
+          <span class="settings__heading-2" i18n="@@settings-tuya">Tuya Smart Plug</span>
+          <div
+            class="settings__checkbox-container"
+            (click)="config.plugins.tuya.enabled = !config.plugins.tuya.enabled">
+            <span class="settings__checkbox">
+              <span class="settings__checkbox-checked" *ngIf="config.plugins.tuya.enabled"></span>
+            </span>
+            <span class="settings__checkbox-descriptor" i18n="@@settings-tuya-enabled">enabled</span>
+          </div>
+          <label for="tuya-label" class="settings__input-label" i18n="@@settings-tuya-label"
+            >Label</label
+          >
+          <input
+            type="text"
+            id="tuya-label"
+            class="settings__input"
+            name="tuya-label"
+            style="width: 44.94vw"
+            [(ngModel)]="config.plugins.tuya.label"
+            required
+            [disabled]="!config.plugins.tuya.enabled" />
           <span class="settings__heading-2">Tasmota</span>
           <div
             class="settings__checkbox-container"

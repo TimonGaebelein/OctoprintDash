@@ -15,6 +15,7 @@ export class PluginsComponent {
   @Input() psuControlPlugin: boolean;
   @Input() ophomPlugin: boolean;
   @Input() tpLinkSmartPlugPlugin: boolean;
+  @Input() tuyaPlugin: boolean;
   @Input() tasmotaPlugin: boolean;
   @Input() tasmotaMqttPlugin: boolean;
 
@@ -27,6 +28,7 @@ export class PluginsComponent {
   @Output() psuControlPluginChange = new EventEmitter<boolean>();
   @Output() ophomPluginChange = new EventEmitter<boolean>();
   @Output() tpLinkSmartPlugPluginChange = new EventEmitter<boolean>();
+  @Output() tuyaPluginChange = new EventEmitter<boolean>();
   @Output() tasmotaPluginChange = new EventEmitter<boolean>();
   @Output() tasmotaMqttPluginChange = new EventEmitter<boolean>();
 }

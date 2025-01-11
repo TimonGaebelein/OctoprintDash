@@ -15,3 +15,4 @@ export * from './plugins/ophomplugstatus.model';
 export * from './plugins/tp-link.model';
 export * from './plugins/tasmota.model';
 export * from './plugins/tasmota-mqtt.model';
+export * from './plugins/tuya.model';

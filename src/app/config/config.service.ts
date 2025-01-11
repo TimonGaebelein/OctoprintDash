@@ -185,6 +185,14 @@ export class ConfigService {
     return this.config.plugins.ophom.enabled;
   }
 
+  public useTuya(): boolean {
+    return this.config.plugins.tuya.enabled;
+  }
+
+  public getTuyaLabel(): string {
+    return this.config.plugins.tuya.label;
+  }
+
   public useTpLinkSmartPlug(): boolean {
     return this.config.plugins.tpLinkSmartPlug.enabled;
   }
