@@ -50,9 +50,9 @@ interface OctoprintFilamentValues {
   volume: number;
 }
 
-interface OctoprintOffsets {
-  tool0: number;
-}
+type OctoprintOffsets = {
+  [K in string as K extends string ? `tool${K}` : never]: number;
+};
 
 interface OctoprintProgress {
   completion: number;
@@ -92,7 +92,8 @@ interface OctoprintSocketTemperatures {
     time: number;
     bed: OctoprintSocketTemperature;
     chamber: OctoprintSocketTemperature;
-    tool0: OctoprintSocketTemperature;
+  } & {
+    [K in string as K extends string ? `tool${K}` : never]: OctoprintSocketTemperature;
   };
 }
 

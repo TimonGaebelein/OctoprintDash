@@ -22,11 +22,23 @@ export class SpoolManagerOctoprintService implements FilamentPluginService {
     );
   }
 
-  public getCurrentSpool(): Observable<FilamentSpool> {
+  public getCurrentSpools(): Observable<Array<FilamentSpool>> {
+    return this.callSpoolManagerAPI('hideInactiveSpools', 0, 3000, 'lastUse', 'desc').pipe(
+      map((spools: SpoolManagerSpoolList): FilamentSpool[] => {
+        if (spools.selectedSpools.length > 0) {
+          return spools.selectedSpools.map(s => this.convertFilamentManagerSpool(s));
+        } else {
+          return null;
+        }
+      }),
+    );
+  }
+
+  public getCurrentSpool(tool: number): Observable<FilamentSpool> {
     return this.callSpoolManagerAPI('hideInactiveSpools', 0, 3000, 'lastUse', 'desc').pipe(
       map((spools: SpoolManagerSpoolList): FilamentSpool => {
         if (spools.selectedSpools.length > 0) {
-          return this.convertFilamentManagerSpool(spools.selectedSpools[0]);
+          return this.convertFilamentManagerSpool(spools.selectedSpools[tool]);
         } else {
           return null;
         }
@@ -72,10 +84,10 @@ export class SpoolManagerOctoprintService implements FilamentPluginService {
     };
   }
 
-  public setSpool(spool: FilamentSpool): Observable<void> {
+  public setSpool(spool: FilamentSpool, tool: number): Observable<void> {
     const setSpoolBody: SpoolManagerSelectionPut = {
       databaseId: spool.id,
-      toolIndex: 0,
+      toolIndex: tool,
     };
 
     return this.http.put<void>(

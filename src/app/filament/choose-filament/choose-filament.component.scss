@@ -30,6 +30,10 @@
     &:last-of-type {
       line-height: 7vh;
     }
+
+    &.filaments__in-use-icon {
+      font-size: 2.4vw;
+    }
   }
 
   tr {
@@ -43,6 +47,10 @@
     box-sizing: border-box;
     border: 0;
     position: relative;
+
+    &.filaments__in-use {
+      background-color: #937171;
+    }
 
     &:first-of-type {
       margin-top: 3.5vh;
@@ -108,6 +116,19 @@
 
   &__name {
     width: 62vw;
+  }
+
+  &__in-use .filaments__name {
+    width: 56vw;
+  }
+
+  &__in-use-icon {
+    width: 6vw;
+    text-align: center;
+    background-image: url('../../../assets/nozzle.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 4.3vw 4.3vw;
   }
 
   &__weight-left {

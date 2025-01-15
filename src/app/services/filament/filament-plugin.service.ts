@@ -7,7 +7,9 @@ import { FilamentSpool } from '../../model';
 export abstract class FilamentPluginService {
   abstract getSpools(): Observable<Array<FilamentSpool>>;
 
-  abstract getCurrentSpool(): Observable<FilamentSpool>;
+  abstract getCurrentSpools(): Observable<FilamentSpool[]>;
 
-  abstract setSpool(spool: FilamentSpool): Observable<void>;
+  abstract getCurrentSpool(tool: number): Observable<FilamentSpool>;
+
+  abstract setSpool(spool: FilamentSpool, tool: number): Observable<void>;
 }

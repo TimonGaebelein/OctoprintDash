@@ -1,0 +1,13 @@
+<span class="filament-heading" i18n="@@choose-tool">select tool</span>
+<table class="tools">
+  <tr>
+    <td
+      class="tool"
+      *ngFor="let x of numSequence(toolCount); index as i"
+      matRipple
+      [matRippleUnbounded]="false"
+      (click)="setTool(i)">
+      <p i18n="@@tool-selection">Tool {{ i }}</p>
+    </td>
+  </tr>
+</table>

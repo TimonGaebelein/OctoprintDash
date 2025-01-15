@@ -2,59 +2,57 @@
   <tr>
     <td class="top-bar__back" (click)="decreasePage()" matRipple [matRippleUnbounded]="false">
       <img src="assets/back.svg" class="top-bar__back-icon" />
-      <ng-container i18n="@@filament-back">
-        back
-      </ng-container>
+      <ng-container i18n="@@filament-back"> back </ng-container>
     </td>
     <td class="top-bar__center">
-      <img src="assets/filament.svg" class="top-bar__center-icon" *ngIf="page === 0" />
-      <div class="filament__progress-bar-wrapper" *ngIf="page > 0">
+      <img src="assets/nozzle.svg" class="top-bar__center-icon" *ngIf="page === 0" />
+      <img src="assets/filament.svg" class="top-bar__center-icon" *ngIf="page === 1" />
+      <div class="filament__progress-bar-wrapper" *ngIf="page > 1">
         <div class="filament__progress-bar" id="progressBar"></div>
       </div>
     </td>
     <td class="top-bar__next" (click)="increasePage()" matRipple [matRippleUnbounded]="false">
-      <ng-container i18n="@@filament-skip">
-        skip
-      </ng-container>
+      <ng-container i18n="@@filament-skip"> skip </ng-container>
       <img src="assets/next.svg" class="top-bar__next-icon" />
     </td>
   </tr>
 </table>
 
 <div class="filament">
-  <app-filament-choose (spoolChange)="setSpool($event)" *ngIf="page === 0 && !showCheckmark"></app-filament-choose>
+  <app-filament-choose-tool
+    (toolChange)="setTool($event)"
+    *ngIf="page === 0 && !showCheckmark"></app-filament-choose-tool>
+  <app-filament-choose-spool (spoolChange)="setSpool($event)" *ngIf="page === 1"></app-filament-choose-spool>
   <app-filament-heat-nozzle
     (increasePage)="increasePage()"
     [currentSpool]="currentSpool"
     [selectedSpool]="selectedSpool"
-    *ngIf="page === 1"
-  ></app-filament-heat-nozzle>
+    [selectedTool]="selectedTool"
+    *ngIf="page === 2"></app-filament-heat-nozzle>
   <app-filament-move-filament
-    *ngIf="page === 2"
-    (increasePage)="increasePage()"
-    [currentSpool]="currentSpool"
-    [action]="'unload'"
-  ></app-filament-move-filament>
-  <app-filament-change-filament
     *ngIf="page === 3"
     (increasePage)="increasePage()"
-    [selectedSpool]="selectedSpool"
-  ></app-filament-change-filament>
-  <app-filament-move-filament
+    [currentSpool]="currentSpool"
+    [action]="'unload'"></app-filament-move-filament>
+  <app-filament-change-filament
     *ngIf="page === 4"
     (increasePage)="increasePage()"
     [selectedSpool]="selectedSpool"
-    [action]="'load'"
-  ></app-filament-move-filament>
+    [selectedTool]="selectedTool"></app-filament-change-filament>
+  <app-filament-move-filament
+    *ngIf="page === 5"
+    (increasePage)="increasePage()"
+    [selectedSpool]="selectedSpool"
+    [selectedTool]="selectedTool"
+    [action]="'load'"></app-filament-move-filament>
   <app-filament-purge-filament
-    *ngIf="page === 5 && !showCheckmark"
-    (purgeDone)="setSpoolSelection()"
-  ></app-filament-purge-filament>
+    *ngIf="page === 6 && !showCheckmark"
+    [selectedTool]="selectedTool"
+    (purgeDone)="setSpoolSelection()"></app-filament-purge-filament>
   <div class="checkmark" *ngIf="showCheckmark">
     <ng-lottie
       id="checkmarkAnimation"
       [options]="checkmarkOptions"
-      (animationCreated)="setAnimationSpeed($event)"
-    ></ng-lottie>
+      (animationCreated)="setAnimationSpeed($event)"></ng-lottie>
   </div>
 </div>

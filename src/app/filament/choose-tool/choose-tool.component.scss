@@ -1,0 +1,39 @@
+.tools {
+  margin-top: 2vh;
+  width: 96vw;
+  display: block;
+  height: 67vh;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  padding-right: 1.5vw;
+
+  tr {
+    width: 96vw;
+
+    td {
+      background-color: #718093;
+      border-radius: 1vw;
+      padding: 0 1vw;
+      display: block;
+      margin-bottom: 2vh;
+      width: 93vw;
+      height: 11vh;
+      transition: color 0.25s;
+      box-sizing: border-box;
+      border: 0;
+      position: relative;
+      text-align: center;
+
+      font-size: 6vw;
+      font-weight: 500;
+
+      &:first-of-type {
+        margin-top: 3.5vh;
+      }
+
+      &:last-of-type {
+        margin-bottom: 3.5vh;
+      }
+    }
+  }
+}

@@ -22,7 +22,7 @@ export class PrintControlComponent implements OnInit, OnDestroy {
   public view = ControlView.MAIN;
   private showedPauseScreen = false;
 
-  public temperatureHotend: number;
+  public temperatureHotends: number[];
   public temperatureHeatbed: number;
   public fanSpeed: number;
   public feedrate: number;
@@ -35,7 +35,7 @@ export class PrintControlComponent implements OnInit, OnDestroy {
     private socketService: SocketService,
     private router: Router,
   ) {
-    this.temperatureHotend = 0;
+    this.temperatureHotends = [0];
     this.temperatureHeatbed = 0;
     this.fanSpeed = 0;
     this.feedrate = 100;
@@ -169,20 +169,20 @@ export class PrintControlComponent implements OnInit, OnDestroy {
       .getPrinterStatusSubscribable()
       .pipe(take(1))
       .subscribe((status: PrinterStatus): void => {
-        this.temperatureHotend = status.tool0.set;
+        this.temperatureHotends = status.tools.map(t => t.set);
         this.temperatureHeatbed = status.bed.set;
         this.fanSpeed = status.fanSpeed;
       });
   }
 
-  public changeTemperatureHotend(value: number): void {
+  public changeTemperatureHotend(value: number, tool = 0): void {
     if (this.showControls) {
-      this.temperatureHotend += value;
-      if (this.temperatureHotend < 0) {
-        this.temperatureHotend = 0;
+      this.temperatureHotends[tool] += value;
+      if (this.temperatureHotends[tool] < 0) {
+        this.temperatureHotends[tool] = 0;
       }
-      if (this.temperatureHotend > 999) {
-        this.temperatureHotend = 999;
+      if (this.temperatureHotends[tool] > 999) {
+        this.temperatureHotends[tool] = 999;
       }
     }
   }
@@ -225,7 +225,9 @@ export class PrintControlComponent implements OnInit, OnDestroy {
 
   public setAdjustParameters(event: MouseEvent): void {
     if (this.showControls) {
-      this.printerService.setTemperatureHotend(this.temperatureHotend);
+      for (const i of this.temperatureHotends) {
+        this.printerService.setTemperatureHotend(this.temperatureHotends[i], i);
+      }
       this.printerService.setTemperatureBed(this.temperatureHeatbed);
       this.printerService.setFeedrate(this.feedrate);
       this.printerService.setFanSpeed(this.fanSpeed);

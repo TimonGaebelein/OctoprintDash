@@ -76,11 +76,13 @@ export class OctoPrintSocketService implements SocketService {
         set: 0,
         unit: '°C',
       },
-      tool0: {
-        current: 0,
-        set: 0,
-        unit: '°C',
-      },
+      tools: [
+        {
+          current: 0,
+          set: 0,
+          unit: '°C',
+        },
+      ],
       fanSpeed: this.configService.isDisplayLayerProgressEnabled() ? 0 : -1,
     } as PrinterStatus;
     this.printerStatusSubject.next(this.printerStatus);
@@ -221,17 +223,25 @@ export class OctoPrintSocketService implements SocketService {
   //==== Printer Status ====//
 
   public extractPrinterStatus(message: OctoprintSocketCurrent): void {
-    if (message.current.temps[0]) {
+    const temps = message.current.temps[0];
+    if (temps) {
       this.printerStatus.bed = {
-        current: Math.round(message?.current?.temps[0]?.bed?.actual),
-        set: Math.round(message?.current?.temps[0]?.bed?.target),
+        current: Math.round(temps?.bed?.actual),
+        set: Math.round(temps?.bed?.target),
         unit: '°C',
       };
-      this.printerStatus.tool0 = {
-        current: Math.round(message?.current?.temps[0]?.tool0?.actual),
-        set: Math.round(message?.current?.temps[0]?.tool0?.target),
-        unit: '°C',
-      };
+
+      for (const [k, temp] of Object.entries(temps)) {
+        if (k.startsWith('tool')) {
+          if (typeof temp === 'number') continue;
+
+          this.printerStatus.tools[Number(k.replace('tool', ''))] = {
+            current: Math.round(temp?.actual),
+            set: Math.round(temp?.target),
+            unit: '°C',
+          };
+        }
+      }
     }
     this.printerStatus.status = PrinterState[message.current.state.text.toLowerCase()];
 

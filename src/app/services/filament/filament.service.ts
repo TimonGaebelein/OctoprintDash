@@ -9,7 +9,7 @@ import { FilamentPluginService } from './filament-plugin.service';
 @Injectable()
 export class FilamentService {
   private filamentSpools: Array<FilamentSpool>;
-  private currentSpool: FilamentSpool;
+  private currentSpool: FilamentSpool[];
   private loading = true;
 
   constructor(
@@ -34,8 +34,8 @@ export class FilamentService {
         }),
       complete: () => (this.loading = false),
     });
-    this.filamentPluginService.getCurrentSpool().subscribe({
-      next: (spool: FilamentSpool) => (this.currentSpool = spool),
+    this.filamentPluginService.getCurrentSpools().subscribe({
+      next: (spools: FilamentSpool[]) => (this.currentSpool = spools),
       error: (error: HttpErrorResponse) =>
         this.notificationService.setNotification({
           heading: $localize`:@@error-spool:Can't load active spool!`,
@@ -50,19 +50,23 @@ export class FilamentService {
     return this.filamentSpools;
   }
 
-  public getCurrentSpool(): FilamentSpool {
+  public getCurrentSpools(): Array<FilamentSpool> {
     return this.currentSpool;
+  }
+
+  public getCurrentSpool(tool: number): FilamentSpool {
+    return this.currentSpool[tool];
   }
 
   public getLoading(): boolean {
     return this.loading;
   }
 
-  public setSpool(spool: FilamentSpool): Promise<void> {
+  public setSpool(spool: FilamentSpool, tool: number): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.filamentPluginService.setSpool(spool).subscribe({
+      this.filamentPluginService.setSpool(spool, tool).subscribe({
         next: () => {
-          this.filamentPluginService.getCurrentSpool().subscribe({
+          this.filamentPluginService.getCurrentSpool(tool).subscribe({
             next: (spoolRemote: FilamentSpool) => {
               if (spool.id === spoolRemote.id) resolve();
               else {

@@ -9,6 +9,7 @@ export interface OctoprintPrinterProfile {
   name: string;
   model: string;
   axes: OctoprintPrinterAxis;
+  extruder: OctoprintPrinterExtruders;
 }
 
 interface OctoprintPrinterAxis {
@@ -19,4 +20,14 @@ interface OctoprintPrinterAxis {
 
 interface OctoprintAxisDetails {
   inverted: boolean;
+}
+
+interface OctoprintPrinterExtruders {
+  count: number;
+  offsets: OctoprintPrinterExtruderOffset[];
+}
+
+interface OctoprintPrinterExtruderOffset {
+  x: number;
+  y: number;
 }
